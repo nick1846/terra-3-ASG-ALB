@@ -49,9 +49,16 @@ resource "aws_security_group" "sg_lconf" {
   vpc_id          = module.my_vpc.vpc_id
 
   ingress {
-    from_port = 80
-    to_port = 80
-    protocol = "tcp"
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    from_port       = 80
+    to_port         = 80
+    protocol        = "tcp"
     security_groups = [module.sg_alb.this_security_group_id]
   }
 
