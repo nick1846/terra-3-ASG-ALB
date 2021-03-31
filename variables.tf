@@ -61,7 +61,7 @@ variable "my_igw_tags" {
 
 #my-sg-variables
 
-variable "my_sg_name" {  
+variable "sg_alb_name" {  
 }
 
 variable "sg_description" {  
@@ -82,19 +82,6 @@ variable "sg_egress_cidr" {
 variable "sg_egress_rules" {  
 }
 
-#my-ec2-dev-cluster-variables
-
-variable "dev_cluster_name" {
-}
-
-variable "ec2_count_dev" {  
-}
-
-variable "ec2_type_dev" {  
-}
-
-variable "ec2_tags_dev" {  
-}
 
 #my-data-ami
 

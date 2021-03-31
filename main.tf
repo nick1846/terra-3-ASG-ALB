@@ -33,9 +33,9 @@ module "my_vpc" {
 }
 
 
-module "my_sg" {
+module "sg_alb" {
   source              = "terraform-aws-modules/security-group/aws" 
-  name                = var.my_sg_name
+  name                = var.sg_alb_name
   description         = var.sg_description
   vpc_id              = module.my_vpc.vpc_id
   ingress_cidr_blocks = var.sg_ingress_cidr
@@ -44,6 +44,23 @@ module "my_sg" {
   egress_rules        = var.sg_egress_rules
 }
 
+
+resource "aws_security_group" "sg_lconf" {
+  
+  ingress {
+    from_port = 80
+    to_port = 80
+    protocol = "tcp"
+    security_groups = [module.sg_alb.this_security_group_id]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}
 
 data "aws_ami" "my_ami" {
   most_recent = var.most_recent_bool
@@ -59,7 +76,7 @@ resource "aws_launch_configuration" "asg_lconf" {
   name            = "my_launch_conf" 
   image_id        = data.aws_ami.my_ami.id
   instance_type   = "t2.micro"
-  security_groups = [module.my_sg.this_security_group_id]
+  security_groups = [aws_security_group.sg_lconf.id]
 
   lifecycle {
     create_before_destroy = true
@@ -78,8 +95,8 @@ module "asg" {
   vpc_zone_identifier          = [module.my_vpc.public_subnets[0], module.my_vpc.public_subnets[1]]
   health_check_type            = "EC2"
   min_size                     = 0
-  max_size                     = 1
-  desired_capacity             = 1
+  max_size                     = 3
+  desired_capacity             = 3
   wait_for_capacity_timeout    = 0
 
   tags = [
