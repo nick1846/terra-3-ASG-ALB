@@ -16,14 +16,6 @@ variable "my_key_name" {
 variable "my_publickey" {
 }
 
-#my-eip-variables
-
-variable "eip_count" {
-}
-
-variable "vpc_bool" {  
-}
-
 #my-vpc-variables
 
 variable "my_vpc_name" {  

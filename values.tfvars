@@ -25,7 +25,7 @@ my_igw_tags             = { Name = "terra-2-igw" }
 
 #my-sg-values
 
-sg_alb_name       = "sg-alb"
+sg_alb_name       = "sg_alb"
 sg_description   = "Security group for web_server and ssh access"
 sg_ingress_cidr  = ["0.0.0.0/0"]
 sg_ingress_rules = ["https-443-tcp", "http-80-tcp", "ssh-tcp", "http-8080-tcp"]
