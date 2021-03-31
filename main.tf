@@ -46,7 +46,8 @@ module "sg_alb" {
 
 
 resource "aws_security_group" "sg_lconf" {
-  
+  vpc_id          = module.my_vpc.vpc_id
+
   ingress {
     from_port = 80
     to_port = 80
@@ -75,7 +76,6 @@ data "aws_ami" "my_ami" {
 resource "aws_launch_configuration" "asg_lconf" {    
   name            = "my_launch_conf" 
   image_id        = data.aws_ami.my_ami.id
-  vpc_id          = module.my_vpc.vpc_id
   instance_type   = "t2.micro"
   security_groups = [aws_security_group.sg_lconf.id]
   key_name        = var.my_key_name 
