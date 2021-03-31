@@ -102,7 +102,7 @@ module "my_alb" {
 
   target_groups = [
     {
-      name             = "dev_tg"  
+      name_prefix             = "dev-"  
       backend_protocol = "HTTP"
       backend_port     = 80
       target_type      = "instance"
