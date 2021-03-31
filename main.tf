@@ -78,8 +78,8 @@ module "asg" {
   vpc_zone_identifier          = [module.my_vpc.public_subnets[0], module.my_vpc.public_subnets[1]]
   health_check_type            = "EC2"
   min_size                     = 0
-  max_size                     = 1
-  desired_capacity             = 1
+  max_size                     = 3
+  desired_capacity             = 3
   wait_for_capacity_timeout    = 0
 
   tags = [
