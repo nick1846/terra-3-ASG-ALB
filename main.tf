@@ -76,8 +76,13 @@ resource "aws_launch_configuration" "asg_lconf" {
   name            = "my_launch_conf" 
   image_id        = data.aws_ami.my_ami.id
   instance_type   = "t2.micro"
+<<<<<<< HEAD
   security_groups = [aws_security_group.sg_lconf.id]
 
+=======
+  security_groups = [module.my_sg.this_security_group_id]
+  key_name        = var.my_key_name 
+>>>>>>> 32598a6b98b0850f4b32a03690b52982889c061b
   lifecycle {
     create_before_destroy = true
   }
@@ -119,6 +124,7 @@ module "my_alb" {
 
   target_groups = [
     {
+      name_prefix             = "dev-"  
       backend_protocol = "HTTP"
       backend_port     = 80
       target_type      = "instance"
